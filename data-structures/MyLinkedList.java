@@ -108,7 +108,9 @@ class MyLinkedList{
     public boolean insert(int index, int value) throws IndexException{
         if( index == 0 )
             return this.pushFront(value);
-        if (this.checkIndex(index))
+        if( index == this.length )
+            return this.push(value);
+        if (!this.checkIndex(index))
             throw new IndexException("Invalid Index");
         Node newNode = new Node(value);
         Node prevNode = this.traverseToIndex(index - 1);
@@ -127,13 +129,18 @@ class MyLinkedList{
             return true;
         }
 
-        while( current.next != null ){
-            if( current.next.value == value ){
+        while ( current.next.next != null ){
+            if ( current.next.value == value ){
                 current.next = current.next.next; 
                 this.length--;
                 return true;
             }
             current = current.next;
+        }
+
+        if ( current.next.value == value ){
+            this.pop();
+            return true;
         }
         return false;
     }
@@ -143,7 +150,11 @@ class MyLinkedList{
             this.popFront();
             return true;
         }
-        if ( this.checkIndex(index) )
+        if ( index == this.length -1 ){
+            this.pop();
+            return true;
+        }
+        if (! this.checkIndex(index) )
             throw new IndexException("Invalid Index");
         Node current = this.traverseToIndex(index -1 );
         current.next = current.next.next;
@@ -161,4 +172,28 @@ class MyLinkedList{
         out = out + "]";
         return out;
     }
+
+    public void reverse(){
+        // if no element or only one element present
+        if( this.head == null || this.head.next == null )
+            return ;
+
+        Node prevNode = this.head;
+        Node currentNode = this.head.next;
+
+        // for first node
+        prevNode.next = null;
+        this.tail = prevNode;
+
+        while(currentNode != null){
+           Node nextNode = currentNode.next;
+           currentNode.next = prevNode;
+           // increment
+           prevNode = currentNode;
+           currentNode = nextNode;
+        }
+        // for last node
+        this.head = prevNode;
+    }
+
 }
