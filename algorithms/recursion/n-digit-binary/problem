@@ -1,0 +1,13 @@
+print n bit binary numbers
+	where 
+		# 1's > # 0's  for all prefixed
+
+
+
+example :
+	110101  ->  is a such 5 bit number
+	11010      prefix of the number
+	1101        prefix
+	110         prefix
+	11
+	1

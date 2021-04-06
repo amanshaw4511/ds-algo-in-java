@@ -1,0 +1,12 @@
+You are given two arrays a and b, sorted in non-decreasing order. Find the number of pairs (i,j) for which ai=bj
+
+.
+Input
+
+The first line contains integers n
+and m, the sizes of the arrays (1≤n,m≤105). The second line contains n integers ai, elements of the first array, the third line contains m integers bi, elements of the second array (−109≤ai,bi≤109
+
+).
+Output
+
+Print one number, the answer to the problem.
