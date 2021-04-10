@@ -178,12 +178,9 @@ class MyLinkedList{
         if( this.head == null || this.head.next == null )
             return ;
 
-        Node prevNode = this.head;
-        Node currentNode = this.head.next;
-
-        // for first node
-        prevNode.next = null;
-        this.tail = prevNode;
+        this.tail = this.head;
+        Node prevNode = null;
+        Node currentNode = this.head;
 
         while(currentNode != null){
            Node nextNode = currentNode.next;
