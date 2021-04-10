@@ -10,21 +10,23 @@ public class Solution {
         int j = 0;
         while (i<n && j<m) {
             if (arr[i] == brr[j]) {
-                int acount = 1;
-                int bcount = 1;
+                int ifreq = 1;
+                int jfreq = 1;
                 
                 int ii = i+1;
                 int jj = j+1;
 
+                // frequency of arr[i]
                 while (ii < n && arr[ii] == arr[i]) {
-                    acount++;
+                    ifreq++;
                     ii++;
                 }
+                // frequency of brr[j]
                 while (jj < m && brr[jj] == brr[j]) {
-                    bcount++;
+                    jfreq++;
                     jj++;
                 }
-                count += acount*bcount;
+                count += ifreq * jfreq;
 
                 i = ii;
                 j = jj;
