@@ -17,7 +17,7 @@ public class Solution {
 
 
         while (j < n) {
- 
+
             // calculation for j 
             char ch = str.charAt(j);
             charCount.put(ch, charCount.getOrDefault(ch, 0) + 1);
@@ -27,16 +27,14 @@ public class Solution {
                 longest_substr = Integer.max(longest_substr, j-i+1);
             }
 
-            else if (charCount.size() > k) {
-                while (charCount.size() > k) {
-                    // calculation for i
-                    char ich = str.charAt(i);
-                    charCount.put(ich, charCount.get(ich) -1);
-                    if (charCount.get(ich) == 0)
-                        charCount.remove(ich);
-                    i++;
+            while (charCount.size() > k) {
+                // calculation for i
+                char ich = str.charAt(i);
+                charCount.put(ich, charCount.get(ich) -1);
+                if (charCount.get(ich) == 0)
+                    charCount.remove(ich);
+                i++;
 
-                }
             }
             j++;
         }

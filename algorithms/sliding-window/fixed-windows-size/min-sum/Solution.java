@@ -16,7 +16,7 @@ public class Solution {
         int j = 0;
 
         int cur_sum = 0;
-        int max_sum = Integer.MAX_VALUE;
+        int min_sum = Integer.MAX_VALUE;
 
         while (j < k) {
             // calculation
@@ -26,20 +26,21 @@ public class Solution {
         }
 
         // update ans
-        max_sum = cur_sum;
+        min_sum = cur_sum;
+
         while (j < n) {
             // calculation
             cur_sum += arr[j] - arr[i];
 
             // update ans
-            max_sum = Integer.max(max_sum, cur_sum);
+            min_sum = Integer.min(min_sum, cur_sum);
 
             // slide window
             i++;
             j++;
         }
 
-        return max_sum;
+        return min_sum;
     }
     
     public static void main(String... args) throws IOException {

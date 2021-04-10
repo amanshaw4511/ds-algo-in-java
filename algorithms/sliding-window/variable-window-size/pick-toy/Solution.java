@@ -21,23 +21,20 @@ public class Solution {
             char ch = str.charAt(j);
             charCount.put(ch, charCount.getOrDefault(ch,0) + 1);
 
-            if (charCount.size() == 2) {
+            if (charCount.size() == k) {
                 // update ans
                 longest_substr = Integer.max(longest_substr, j-i+1);
             }
 
-            else if (charCount.size() > 2) {
-                while(charCount.size() >2) {
-                    // update for i
-                    char ich = str.charAt(i);
-                    int icount = charCount.get(ich);
-                    charCount.put(ich, --icount); 
-                    if (icount == 0) {
-                        charCount.remove(ich);
-                    }
-                    i++;
+            while(charCount.size() > k) {
+                // update for i
+                char ich = str.charAt(i);
+                int icount = charCount.get(ich);
+                charCount.put(ich, --icount); 
+                if (icount == 0) {
+                    charCount.remove(ich);
                 }
-
+                i++;
             }
             j++;
         }

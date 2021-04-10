@@ -5,73 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Solution {
-    public static String solve(String str, String pattern) {
-        int n = str.length();
-        int k = pattern.length();
-
-        int i = 0;
-        int j = 0;
-        Pair longest_substr = new Pair(0,Integer.MAX_VALUE ) ;
-
-        Map<Character,Integer> charCount = new HashMap<>();
-
-        for (int t=0; t<k; t++) {
-            char ch = pattern.charAt(t);
-            charCount.put(ch, charCount.getOrDefault(ch, 0) + 1);
-        }
-
-        if (n < charCount.size()) return "";
-
-        while (j < charCount.size()) {
-            // calc for j
-            char ch = str.charAt(j);
-            if (charCount.get(ch) != null) {
-                int jcount = charCount.get(ch);
-                charCount.put(ch, --jcount);
-            }
-            j++;
-        }
-
-        // update ans
-        if (allNonPostive(charCount)) {
-            longest_substr = new Pair(i,j-1);
-        }
-
-        while (j < n) {
-            // calc for j
-            char ch = str.charAt(j);
-            // move j
-            if (charCount.get(ch) != null) {
-                charCount.put(ch, charCount.get(ch) -1);
-            }
-
-            while (allNonPostive(charCount)) {
-                // update ans
-                longest_substr = Pair.min(longest_substr, new Pair(i,j));
-                // move i
-                char ich = str.charAt(i);
-                if (charCount.get(ich) != null) {
-                    charCount.put(ich, charCount.get(ich) + 1);
-                }
-                i++;
-            }
-
-            j++;
-        }
-
-        if (longest_substr.value == Integer.MIN_VALUE)
-            return "";
-
-        return str.substring(longest_substr.key, longest_substr.value +1);
-    }
-
-    static boolean allNonPostive(Map<Character,Integer> map) {
-        for (Character ch : map.keySet()) {
-            if (map.get(ch) > 0) 
-                return false;
-        }
-        return true;
-    }
 
     static String solve2(String str, String pattern) {
         int n = str.length();
@@ -80,11 +13,13 @@ public class Solution {
         Map<Character,Integer> map = new HashMap<>();
         for (int i = 0; i<k; i++) {
             char ch = pattern.charAt(i);
-            map.put(ch, map.getOrDefault(ch, 0) + 1);
+            if (! map.containsKey(ch)) {
+                map.put(ch, 1);
+            }
         }
 
         // corner case
-        if (n < k) return "";
+        if (n < map.size()) return "";
 
         // stores count of element in map value > 0
         int count = map.size();

@@ -22,7 +22,6 @@ public class Solution {
             int lcount = charCount.getOrDefault(ch, 0);
             charCount.put(ch, ++lcount);
 
-            System.out.println(ch + " count:" + lcount );
             // update
             if (lcount <= 1) {
                 longest_substr = Integer.max(longest_substr, charCount.size());
@@ -30,21 +29,19 @@ public class Solution {
 
             if (lcount > 1) {
 
+                // calculation for j
                 while(charCount.get(ch) > 1) { 
                     char ich = str.charAt(i);
                     int icount = charCount.get(ich);
                     charCount.put(ich, --icount);
-                    // System.out.println(ich + " count:" + icount );
 
                     if (icount == 0) {
                         charCount.remove(ich);
-                        System.out.println("removed :"+ ich);
                     }
                     i++;
                 }
                 // do one more time for str[i]
             }
-            System.out.println(" i:" + i + " j:"+ j +" size:" + charCount.size());
 
             j++;
         }
@@ -74,7 +71,7 @@ public class Solution {
             
             j++;
         }
-        return max;
+        return Integer.max(cur_max, max);
     }
 
     public static void main(String... args) throws IOException {

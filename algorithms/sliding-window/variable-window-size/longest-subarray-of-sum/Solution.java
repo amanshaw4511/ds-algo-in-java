@@ -24,7 +24,7 @@ public class Solution {
             }
 
             else if (cur_sum > sum) {
-                while (cur_sum > sum && i < j) {
+                while (cur_sum > sum) {
                     // calculation for i
                     cur_sum -= arr[i];
                     i++;
