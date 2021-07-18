@@ -1,0 +1,9 @@
+
+1. Compute a graph's minimum spamming tree.
+2. Detect and find cycle in graph.
+3. Check if graph is bipartite.
+4. Find strong connected component.
+5. Topological sort the nodes of graph.
+6. Find bridges and articulation points.
+7. Find augmenting paths in a flow network.
+8. Generate mazes.

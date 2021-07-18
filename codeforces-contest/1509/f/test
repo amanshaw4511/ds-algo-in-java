@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# syntax 
+# ./test.sh input_file output_file
+
+OPTION=$1
+INPUT_FILE=$2
+OUTPUT_FILE=$3
+
+[ ! -f $INPUT_FILE ] && echo $INPUT_FILE not found && exit 1
+[ ! -f $OUTPUT_FILE ] && echo $OUTPUT_FILE not found && exit 1
+
+ 
+test_this() {
+    echo 'input :'
+    cat $INPUT_FILE
+
+    echo 'expected output :'
+    cat $OUTPUT_FILE
+
+    echo 'your output :'
+    java Solution.java < $INPUT_FILE
+    
+}
+
+test_all() {
+    for ((i=1; i<9; i++)) {
+        INPUT_FILE="input$i"
+        OUTPUT_FILE="output$i"
+
+        if [ -f $INPUT_FILE -a -f $OUTPUT_FILE ] 
+        then
+            echo -e "--------------$INPUT_FILE : $OUTPUT_FILE----------------"
+            test_this
+        fi
+    }
+}
+
+display_help() {
+    cat << EOL
+Usage
+    cf-cli [OPTION] file..
+Options
+    -a      test all input files starting wiht "input" name
+    -t      test custom input against custom output
+    -h      display this help
+
+Example
+    test all input output :
+        cf-cli -a
+    test one input output :
+        cf-cli -t my_input_file my_output_file
+EOL
+}
+
+
+case "$OPTION" in
+    "-t") test_this ;;
+    "-a") test_all ;;
+    "-h") display_help ;;
+    *) display_help ;;
+esac
+
