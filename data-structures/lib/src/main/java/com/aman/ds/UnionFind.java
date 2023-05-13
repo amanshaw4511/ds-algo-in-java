@@ -1,8 +1,14 @@
+//*
+// construct        N
+// union            log N
+// find             log N
+// no. of comp      1
+
 package com.aman.ds;
 
 public class UnionFind {
     private int size;
-    private int nComponents ;
+    private int nComponents;
     private int[] parent;
     private int[] rank;
     private int[] sz;
@@ -44,6 +50,8 @@ public class UnionFind {
 
         if (irep == jrep) return;
 
+        // whichever rank is high will become representer
+        // this is to avoid more depth in tree
         if (this.rank[irep] > this.rank[jrep]) {
             this.parent[jrep] = irep;
             this.sz[irep] += this.sz[jrep];

@@ -1,3 +1,10 @@
+//*         HashMap
+// Access      1
+// Modifiy     1
+// Add         1
+// Remove      1
+
+
 package com.com.aman.ds;
 
 import java.util.LinkedList;
