@@ -36,7 +36,7 @@ public class Heap<T extends Comparable<T>> {
     }
 
     private int getLeftChildIndex(int i) {
-        return i * 2 + 1;
+        return i * 2;
     }
 
     private int getRightChildIndex(int i) {
@@ -63,9 +63,6 @@ public class Heap<T extends Comparable<T>> {
         return comparator.compare(this.data[i], this.data[j]) < 0;
     }
 
-    // private T getLeftChild(int i) { return data[i*2 + 1]; }
-    // private T getRightChild(int i) { return data[i*2 + 2]; }
-    // private T getParent(int i) { return data[i/2]; }
 
     private void swap(int i, int j) {
         T temp = this.data[i];
