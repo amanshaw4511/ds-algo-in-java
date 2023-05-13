@@ -31,7 +31,7 @@ class CirculerArrayQueue<T> {
     }
 
     public boolean isEmpty() {
-        return this.head == -1; 
+        return this.head == -1;
     }
 
     public boolean isFull() {
@@ -51,12 +51,12 @@ class CirculerArrayQueue<T> {
         if (this.isEmpty()) {
             this.head = 0;
             this.tail = 0;
-        } else if (this.tail == 0) {
+        } else if (this.head == 0) {
             this.head = this.capacity() -1;
         } else {
             this.head -= 1;
         }
-        this.data[tail] = value;
+        this.data[head] = value;
     }
 
     public void addLast(T value) {
@@ -66,18 +66,18 @@ class CirculerArrayQueue<T> {
             this.head = 0;
             this.tail = 0;
         } else if (this.tail == this.capacity() -1) {
-            this.head = 0;
+            this.tail = 0;
         } else {
-            this.head += 1;
+            this.tail += 1;
         }
-        this.data[head] = value;
+        this.data[tail] = value;
     }
 
     public Optional<T> peekFirst() {
         if (this.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(this.data[tail]);
+        return Optional.of(this.data[head]);
     }
 
     public Optional<T> peekLast() {
@@ -89,26 +89,32 @@ class CirculerArrayQueue<T> {
 
     public Optional<T> removeFirst() {
         Optional<T> value = this.peekFirst();
+        if (value.isEmpty()) {
+            return value;
+        }
         if (this.head == this.tail) { // only one element exist
             this.head = -1;
             this.tail = -1;
-        } else if(this.tail == this.capacity() -1){
-            this.tail = 0;
+        } else if(this.head == this.capacity() -1){
+            this.head = 0;
         } else {
-            this.tail += 1;
+            this.head += 1;
         }
         return value;
     }
 
     public Optional<T> removeLast() {
         Optional<T> value = this.peekLast();
+        if (value.isEmpty()) {
+            return value;
+        }
         if (this.head == this.tail) { // only one element exist
             this.head = -1;
             this.tail = -1;
-        } else if (this.head == 0) {
-            this.head = this.capacity() -1;
+        } else if (this.tail == 0) {
+            this.tail = this.capacity() -1;
         } else {
-            this.head -= 1;
+            this.tail -= 1;
         }
         return value;
     }
