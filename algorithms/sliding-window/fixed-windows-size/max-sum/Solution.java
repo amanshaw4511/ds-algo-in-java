@@ -7,41 +7,25 @@ public class Solution {
     public static int solve(int[] arr, int k) {
         int n = arr.length;
 
-        // invalid arr
         if (n < k) {
             return -1;
         }
 
-        int i = 0;
-        int j = 0;
-
         int cur_sum = 0;
-        int max_sum = Integer.MAX_VALUE;
-
-        while (j < k) {
-            // calculation
-            cur_sum += arr[j];
-
-            j++;
+        for (int i=0; i<k; i++) {
+            cur_sum += arr[i];
         }
 
-        // update
-        max_sum = cur_sum;
+        int max_sum = cur_sum;
 
-        while (j < n) {
-            // calculation
-            cur_sum += arr[j] - arr[i];
-
-            // update result
+        for (int i=k; i<n; i++) {
+            cur_sum += arr[i] - arr[i-k];
             max_sum = Integer.max(max_sum, cur_sum);
-            
-            // slide window
-            i++;
-            j++;
         }
 
         return max_sum;
     }
+
     public static void main(String... args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

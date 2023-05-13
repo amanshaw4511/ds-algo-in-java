@@ -1,55 +1,49 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Solution {
     public static int[] solve(int[] arr, int k) {
         int n = arr.length;
 
-        // invalid arr
-        // if (k > n) {
-            // return ;
-        // }
+        List<Integer> result = new ArrayList<>();
 
-        int[] res = new int[n-2];
-        int r = 0; // index of res
-        
-        int i = 0;
-        int j = 0;
-        int curMax = Integer.MIN_VALUE;
+        int curMax = 0;
+        int curSum = 0;
 
-        // first window
-        while (j < k) {
-            // calculation
-            curMax = Integer.max(curMax, arr[j]);
-
-            j++;
+        for (int i=0; i<k; i++) {
+            curSum += arr[i];
+            curMax = Math.max(curMax, arr[i]);
         }
 
-        // update result
-        res[r++] = curMax;
+        result.add(curMax);
 
-        while (j < n) {
+        for (int i=k; i<n; i++) {
+            int right = i;
+            int left = i-k;
+            curSum += arr[right] - arr[left];
 
-            // calculation
-            if (arr[i] == curMax) {
-                for (int t=i+1; t<j; t++) {
-                    curMax = Integer.max(curMax, arr[t]);
-                }
+            if (arr[right] > curMax) {
+                curMax = arr[right];
             }
-            curMax = Integer.max(curMax, arr[j]);
-
-            // update ans
-            res[r++] = curMax;
-
-            // slide the window
-            i++;
-            j++;
+            if (arr[left] == curMax) {
+                curMax = max(arr, left+1, right+1);
+            }
+            result.add(curMax);
         }
 
-        return res;
+        return result.stream().mapToInt(x->x).toArray();
     }
+
+    public static int max(int[] arr, int start, int end) {
+        int m = 0;
+        for (int i=start; i<end; i++) {
+            m = Math.max(m, arr[i]);
+        }
+        return m;
+    }
+
     public static void main(String... args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
