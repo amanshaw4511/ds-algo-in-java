@@ -1,5 +1,9 @@
 
 /**
+ * Binary Search Tree is a Binary tree where
+ * - left sub-tree contains keys less then node key
+ * - right sub-tree contains keys greater teen node key
+ *
  * search           log(n)
  * add              log(n)
  * remove           log(n)
