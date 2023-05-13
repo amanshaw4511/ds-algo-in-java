@@ -1,4 +1,4 @@
-// package com.com.aman.ds;
+package com.com.aman.ds;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -83,16 +83,18 @@ public class HMap<K, V> implements Iterable<Entry<K,V>> {
         this.capacity *= 2;
         LinkedList<Entry<K, V>>[] newData = new LinkedList[this.capacity];
         for (LinkedList<Entry<K, V>> bucket : this.data) {
-            if (bucket != null) {
-                for (Entry<K, V> entry : bucket) {
-                    int index = this.normalizeIndex(entry.hash);
-                    LinkedList<Entry<K, V>> newBucket = newData[index];
-                    if (newBucket == null) {
-                        newBucket = new LinkedList<Entry<K, V>>();
-                        newData[index] = newBucket;
-                    }
-                    newBucket.add(entry);
+            if (bucket == null) {
+                continue;
+            }
+
+            for (Entry<K, V> entry : bucket) {
+                int index = this.normalizeIndex(entry.hash);
+                LinkedList<Entry<K, V>> newBucket = newData[index];
+                if (newBucket == null) {
+                    newBucket = new LinkedList<Entry<K, V>>();
+                    newData[index] = newBucket;
                 }
+                newBucket.add(entry);
             }
         }
         this.data = newData;
@@ -141,27 +143,25 @@ public class HMap<K, V> implements Iterable<Entry<K,V>> {
             throw new IllegalArgumentException("null key");
         }
 
-        Entry<K, V> newEntry = new Entry<>(key, value);
-        int index = this.normalizeIndex(newEntry.hash);
-
-        LinkedList<Entry<K, V>> bucket = this.data[index];
-
-        if (bucket == null) {
-            bucket = new LinkedList<Entry<K, V>>();
-            this.data[index] = bucket;
-        }
-
+        int index = this.normalizeIndex(key.hashCode());
         Entry<K, V> existingEntry = this.getEntry(index, key);
+
         if (existingEntry == null) {
-            bucket.add(newEntry);
+            LinkedList<Entry<K, V>> bucket = this.data[index];
+            if (bucket == null) {
+                bucket = new LinkedList<Entry<K, V>>();
+                this.data[index] = bucket;
+            }
+
+            bucket.add(new Entry<>(key, value));
             this.size += 1;
             this.ensureExtraCapacity();
             return null;
-        } else {
-            V oldValue = existingEntry.value;
-            existingEntry.value = newEntry.value;
-            return oldValue;
         }
+
+        V oldValue = existingEntry.value;
+        existingEntry.value = newEntry.value;
+        return oldValue;
     }
 
     public V get(K key) {
