@@ -1,6 +1,6 @@
-import java.util.Arrays;
-
 /**
+ * FenwickTree (Binary Indexed Tree)
+ *
  * Construction         n
  * Point Update         log(n)
  * Range Sum            log(n)
@@ -9,17 +9,29 @@ import java.util.Arrays;
  * Removing index        NA
  * */
 
+/**
+ * 8  1000       |
+ * 7  0111 |     |
+ * 6  0110   |   |
+ * 5  0101 | |   |
+ * 4  0100     | |
+ * 3  0011 |   | |
+ * 2  0010   | | |
+ * 1  0001 | | | |
+ **/
 
-class FedwichTree{
+import java.util.Arrays;
+
+class FebwickTree{
     private int size;
     private int[] data;
 
-    FedwichTree(int size) {
+    FebwickTree(int size) {
         this.data = new int[size + 1];
         this.size = size;
     }
 
-    FedwichTree(int[] array) {
+    FebwickTree(int[] array) {
         this.size = array.length;
         this.constructTree(array);
     }
